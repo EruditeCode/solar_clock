@@ -1,5 +1,6 @@
 import pygame
 import clock_functions as cf
+from random import randint
 
 def main():
 	# Pygame Setup
@@ -44,10 +45,13 @@ def main():
 		# Drawing the Earth and the clock hand.
 		angle = (count / days) * 360
 		position_earth = cf.get_position(CENTER, points[count], angle)
-		pygame.draw.circle(screen, (255,255,255), position_earth, 6)
+		pygame.draw.circle(screen, (255,255,255), position_earth, 7)
+		pygame.draw.circle(screen, (0,128,128), position_earth, 6)
 
 		# Drawing the Sun.
-		pygame.draw.circle(screen, (255,255,255), CENTER, 11)
+		extra_radius = randint(11, 14)
+		pygame.draw.circle(screen, (255,255,100), CENTER, extra_radius, 2)
+		pygame.draw.circle(screen, (255,255,60), CENTER, 11)
 
 		if count < days - 1:
 			count += 1
