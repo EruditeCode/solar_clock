@@ -47,14 +47,16 @@ def main():
 		trail[count] = 100
 		for index, value in enumerate(trail):
 			if value > 20:
-				angle = (index / days) * 360
-				position = cf.get_position(CENTER, points[index], angle)
+				angle = 270 + (index / days) * 360
+				position = cf.get_position(CENTER, points[index]/1.5, angle)
 				pygame.draw.circle(screen, (value,value,value), position, 1)
 				trail[index] -= 1
 
-		# Drawing the Earth.
-		angle = (count / days) * 360
-		position_earth = cf.get_position(CENTER, points[count], angle)
+		# Drawing the Earth and the clock hand.
+		angle = 270 + (count / days) * 360
+		position_hand = cf.get_position(CENTER, 145, angle)
+		pygame.draw.aaline(screen, (255,255,255), CENTER, position_hand)
+		position_earth = cf.get_position(CENTER, points[count]/1.5, angle)
 		pygame.draw.circle(screen, (255,255,255), position_earth, 7)
 		pygame.draw.circle(screen, (0,128,128), position_earth, 6)
 
