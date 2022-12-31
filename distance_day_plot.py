@@ -1,3 +1,5 @@
+# A program to generate a plot of the distance to the sun for each day of the year.
+
 import pygame
 import math
 
