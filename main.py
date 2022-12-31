@@ -10,7 +10,7 @@ def main():
 	# Pygame Setup
 	pygame.init()
 	WIDTH, HEIGHT = 1000, 600
-	CENTER = (WIDTH//2, HEIGHT//2)
+	CENTER = (WIDTH//3, HEIGHT//2)
 	screen = pygame.display.set_mode((WIDTH, HEIGHT))
 	clock = pygame.time.Clock()
 
@@ -87,6 +87,11 @@ def main():
 		extra_radius = randint(11, 14)
 		pygame.draw.circle(screen, (255,255,100), CENTER, extra_radius, 2)
 		pygame.draw.circle(screen, (255,255,60), CENTER, 11)
+
+		# Draw Text Block.
+		draw_text(f"DAY: {count:0>3}", 64, (4*WIDTH//5, 2*HEIGHT//5), (255,255,255), "calibril.ttf")
+		draw_text(f"{points[count]:.3f}", 48, (4*WIDTH//5, 4*HEIGHT//7), (255,255,255), "calibril.ttf")
+		draw_text(f"million km", 30, (4*WIDTH//5, 4*HEIGHT//7 + 50), (255,255,255), "calibril.ttf")
 
 		if count < days - 1:
 			count += 1
