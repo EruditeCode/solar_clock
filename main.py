@@ -38,11 +38,21 @@ def main():
 			else:
 				days, break_index = 365, 178
 			points = cf.create_orbit_points(days, break_index)
+			trail = [0 for i in range(0, days)]
 
 		# Show the background.
 		screen.blit(bg, (0, 0))
 
-		# Drawing the Earth and the clock hand.
+		# Drawing trail effect for earth.
+		trail[count] = 100
+		for index, value in enumerate(trail):
+			if value > 20:
+				angle = (index / days) * 360
+				position = cf.get_position(CENTER, points[index], angle)
+				pygame.draw.circle(screen, (value,value,value), position, 1)
+				trail[index] -= 1
+
+		# Drawing the Earth.
 		angle = (count / days) * 360
 		position_earth = cf.get_position(CENTER, points[count], angle)
 		pygame.draw.circle(screen, (255,255,255), position_earth, 7)
