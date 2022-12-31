@@ -2,6 +2,10 @@ import pygame
 import clock_functions as cf
 from random import randint
 
+months_to_days = {"Jan":31, "Feb":28, "Mar":31, "Apr":30,
+					"May":31, "Jun":30, "Jul":31, "Aug":31,
+					"Sep":30, "Oct":31, "Nov":30, "Dec":31}
+
 def main():
 	# Pygame Setup
 	pygame.init()
@@ -35,13 +39,23 @@ def main():
 			year = date_year
 			if year % 4 == 0:
 				days, break_index = 366, 179
+				months_to_days["Feb"] = 29
 			else:
 				days, break_index = 365, 178
+				months_to_days["Feb"] = 28
 			points = cf.create_orbit_points(days, break_index)
 			trail = [0 for i in range(0, days)]
 
 		# Show the background.
 		screen.blit(bg, (0, 0))
+
+		# Drawing the clock face.
+		face_angle = 270
+		for key in months_to_days.keys():
+			posA = cf.get_position(CENTER, 170, face_angle)
+			posB = cf.get_position(CENTER, 200, face_angle)
+			pygame.draw.aaline(screen, (255,255,255), posA, posB, 2)
+			face_angle += (360 / days) * months_to_days[key]
 
 		# Drawing trail effect for earth.
 		trail[count] = 100
