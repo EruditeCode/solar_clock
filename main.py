@@ -14,6 +14,13 @@ def main():
 	screen = pygame.display.set_mode((WIDTH, HEIGHT))
 	clock = pygame.time.Clock()
 
+	def draw_text(text, size, pos, color, font_name=None):
+		font = pygame.font.Font(font_name, size)
+		text_surface = font.render(text, True, color)
+		text_rect = text_surface.get_rect()
+		text_rect.center = pos
+		screen.blit(text_surface, text_rect)
+
 	# Creating the background surface for the clock.
 	bg = pygame.Surface((WIDTH, HEIGHT))
 	bg.fill((20, 20, 20))
@@ -55,6 +62,8 @@ def main():
 			posA = cf.get_position(CENTER, 170, face_angle)
 			posB = cf.get_position(CENTER, 200, face_angle)
 			pygame.draw.aaline(screen, (255,255,255), posA, posB, 2)
+			posTxt = cf.get_position(CENTER, 230, face_angle)
+			draw_text(key, 22, posTxt, (255,255,255), "calibril.ttf")
 			face_angle += (360 / days) * months_to_days[key]
 
 		# Drawing trail effect for earth.
