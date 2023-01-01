@@ -1,3 +1,5 @@
+# Basic functions to support the solar clock program.
+
 import math
 
 # Constants for calculations.
@@ -21,4 +23,3 @@ def get_position(point, length, angle):
 	x = point[0] + length * math.cos(angle)
 	y = point[1] + length * math.sin(angle)
 	return (x, y)
-
