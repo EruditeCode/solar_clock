@@ -1,10 +1,14 @@
 import pygame
 import clock_functions as cf
 from random import randint
+from datetime import date
 
 months_to_days = {"Jan":31, "Feb":28, "Mar":31, "Apr":30,
 					"May":31, "Jun":30, "Jul":31, "Aug":31,
 					"Sep":30, "Oct":31, "Nov":30, "Dec":31}
+
+num_to_month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+				"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 def main():
 	# Pygame Setup
@@ -26,24 +30,23 @@ def main():
 	bg.fill((20, 20, 20))
 
 	# Initial setup for the clock.
-	count = 0
 	year = None
 	days = None
 	break_index = None
 	points = []
-
+	
 	while True:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				exit()
 
-		# Collect info...
-		date_year = 2023
+		# Collect date information.
+		today = date.today()
 		
 		# Update orbit points based on collected information.
-		if date_year != year or points == []:
-			year = date_year
+		if today.year != year or points == []:
+			year = today.year
 			if year % 4 == 0:
 				days, break_index = 366, 179
 				months_to_days["Feb"] = 29
@@ -52,6 +55,15 @@ def main():
 				months_to_days["Feb"] = 28
 			points = cf.create_orbit_points(days, break_index)
 			trail = [0 for i in range(0, days)]
+
+		# Set count based on collected date.
+		count = 0
+		for key in months_to_days.keys():
+			if key != num_to_month[today.month-1]:
+				count += months_to_days[key]
+			else:
+				break
+		count += today.day
 
 		# Show the background.
 		screen.blit(bg, (0, 0))
@@ -88,15 +100,10 @@ def main():
 		pygame.draw.circle(screen, (255,255,100), CENTER, extra_radius, 2)
 		pygame.draw.circle(screen, (255,255,60), CENTER, 11)
 
-		# Draw Text Block.
+		# Drawing Text Block.
 		draw_text(f"DAY: {count:0>3}", 64, (4*WIDTH//5, 2*HEIGHT//5), (255,255,255), "calibril.ttf")
 		draw_text(f"{points[count]:.3f}", 48, (4*WIDTH//5, 4*HEIGHT//7), (255,255,255), "calibril.ttf")
 		draw_text(f"million km", 30, (4*WIDTH//5, 4*HEIGHT//7 + 50), (255,255,255), "calibril.ttf")
-
-		if count < days - 1:
-			count += 1
-		else:
-			count = 0
 
 		pygame.display.update()
 		clock.tick(60)
