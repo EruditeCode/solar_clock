@@ -1,3 +1,7 @@
+# A program to create a real time solar clock.
+
+# Video Walkthrough Link: https://www.youtube.com/watch?v=mYQsL-NZ-bs
+
 import pygame
 import clock_functions as cf
 from random import randint
